@@ -38,7 +38,7 @@
 
     <article>
       <h3>Quorum</h3>
-      <p class="meta">2026 · Go · Raft, write-ahead log, Docker, Prometheus</p>
+      <p class="meta">2026 · Go · Raft, write-ahead log, snapshots, Docker, Prometheus</p>
       <p>
         A replicated key-value store on an implementation of Raft written from scratch. The consensus
         core never touches the clock, the network or the disk, so a whole cluster runs inside one
@@ -46,10 +46,16 @@
         partitions and crash-restarts at it and check Raft's safety properties after every step.
       </p>
       <ul>
-        <li>1,000 randomized fault scenarios pass; mutation tests confirm the suite catches a forgotten vote or a lost log entry.</li>
-        <li>About 49,000 concurrent operations under partitions, checked linearizable with Porcupine.</li>
+        <li>3,000 randomized fault scenarios on every CI run; deliberately broken versions (a forgotten vote, a lost entry, a wrong snapshot rule) make them fail.</li>
+        <li>Concurrent operations under partitions, with log compaction on, checked linearizable with Porcupine.</li>
         <li>Durable writes went from 842 to about 3,450 per second once replication was pipelined and fsyncs were batched.</li>
       </ul>
+      <p>
+        It runs on a small cloud VM where a cron job kills the leader every ten minutes. The first
+        days showed an election storm after each restart: the other nodes kept writing into their dead
+        connections to the restarted one, and TCP only told them so 26 seconds later. Fixing the
+        transport, then adding PreVote, made the restarts invisible.
+      </p>
       <p class="more">
         <a href="https://quorum.aymenkabil.me">Live dashboard</a>
         <a href="https://github.com/kabilaymen/quorum">Code</a>
@@ -59,7 +65,7 @@
 
     <article>
       <h3>Vigil</h3>
-      <p class="meta">2026 · Go, Python · MQTT, Kafka, Prometheus, Grafana</p>
+      <p class="meta">2026 · Go, Python · MQTT, Kafka, TimescaleDB, Prometheus, Grafana</p>
       <p>
         Telemetry and failure detection for a fleet of machines. A crashed machine is easy to
         notice: the broker publishes its last will. A machine that is still connected but has
@@ -68,11 +74,13 @@
       </p>
       <ul>
         <li>A stalled machine is flagged after about 1.2 s of silence; a crash is reported in about 1 s (50 simulated machines).</li>
-        <li>The detector stops judging the fleet while it is itself behind the stream, so a slow detector cannot raise false alarms.</li>
+        <li>A stream processor keeps a 10-second history per machine in TimescaleDB and stores its Kafka offsets in the same transaction, so a crash never leaves a bucket half written.</li>
+        <li>No message lost at 16,000 messages per second from 8,000 simulated machines, in a load test on a 4-core CI runner.</li>
       </ul>
       <p class="more">
         <a href="https://vigil.aymenkabil.me">Live dashboard</a>
         <a href="https://github.com/kabilaymen/vigil">Code</a>
+        <a href="https://github.com/kabilaymen/vigil/blob/main/JOURNAL.md">What went wrong along the way</a>
       </p>
     </article>
 
