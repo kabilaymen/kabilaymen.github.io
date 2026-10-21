@@ -1,0 +1,129 @@
+:root {
+  --bg: #fbfaf7;
+  --text: #1a1a1a;
+  --muted: #6b6760;
+  --rule: #e4e0d8;
+  --link: #8a2c1f;
+  color-scheme: light;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #161514;
+    --text: #e8e5df;
+    --muted: #9a958c;
+    --rule: #2e2b28;
+    --link: #e09a83;
+    color-scheme: dark;
+  }
+}
+
+* { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: "Source Serif 4", Georgia, "Times New Roman", serif;
+  font-size: 1.125rem;
+  line-height: 1.6;
+  font-variant-numeric: oldstyle-nums;
+}
+
+main {
+  max-width: 40rem;
+  margin: 0 auto;
+  padding: 4.5rem 1rem 3rem;
+}
+
+h1 {
+  font-size: 2.1rem;
+  font-weight: 600;
+  line-height: 1.2;
+  margin: 0 0 1.25rem;
+  letter-spacing: -0.01em;
+}
+
+h2 {
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--muted);
+  margin: 3.5rem 0 1.5rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid var(--rule);
+}
+
+h3 {
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin: 0;
+}
+
+p { margin: 0 0 1rem; }
+
+.lede { font-size: 1.25rem; line-height: 1.5; }
+
+a {
+  color: var(--link);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.18em;
+}
+a:hover { text-decoration-thickness: 2px; }
+
+.links, .more {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem 1.25rem;
+}
+
+article { margin-bottom: 2.5rem; }
+
+.meta {
+  color: var(--muted);
+  font-size: 0.95rem;
+  margin: 0.1rem 0 0.75rem;
+}
+
+article ul {
+  margin: 0 0 1rem;
+  padding-left: 1.2rem;
+}
+article li { margin-bottom: 0.35rem; }
+
+.cv {
+  display: grid;
+  grid-template-columns: 5rem 1fr;
+  gap: 0.9rem 1rem;
+  margin: 0;
+}
+.cv dt {
+  color: var(--muted);
+  font-variant-numeric: lining-nums tabular-nums;
+  font-size: 0.95rem;
+  padding-top: 0.15rem;
+}
+.cv dd { margin: 0; }
+
+.plain { padding-left: 1.2rem; margin: 0; }
+.plain li { margin-bottom: 0.5rem; }
+
+footer {
+  margin-top: 4rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--rule);
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+@media (max-width: 30rem) {
+  main { padding-top: 2.5rem; }
+  h1 { font-size: 1.8rem; }
+  .lede { font-size: 1.15rem; }
+  .cv { grid-template-columns: 1fr; gap: 0.1rem; }
+  .cv dd { margin-bottom: 0.9rem; }
+}

@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Aymen Kabil</title>
+  <meta name="description" content="Aymen Kabil, engineering student in parallel and distributed systems at Institut Polytechnique de Paris. Looking for a six-month internship from April 2027.">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%231a1a1a'/><text x='16' y='22' font-family='Georgia,serif' font-size='16' fill='%23fbfaf7' text-anchor='middle'>ak</text></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<main>
+
+  <header>
+    <h1>Aymen Kabil</h1>
+    <p class="lede">
+      Engineering student in parallel and distributed systems at Institut Polytechnique de Paris
+      (Télécom Paris and Télécom SudParis). I like systems that have to stay correct when machines
+      crash and networks split, and I like proving that they do.
+    </p>
+    <p>
+      Looking for a <strong>six-month end-of-studies internship from April 2027</strong>, in
+      distributed systems, cloud infrastructure or HPC.
+    </p>
+    <p class="links">
+      <a href="mailto:kabilaymen1@gmail.com">kabilaymen1@gmail.com</a>
+      <a href="https://github.com/kabilaymen">GitHub</a>
+      <a href="https://www.linkedin.com/in/kabilaymen/">LinkedIn</a>
+      <a href="cv/Aymen_Kabil_CV.pdf">CV (PDF)</a>
+    </p>
+  </header>
+
+  <section>
+    <h2>Projects</h2>
+
+    <article>
+      <h3>Quorum</h3>
+      <p class="meta">2026 · Go · Raft, write-ahead log, Docker, Prometheus</p>
+      <p>
+        A replicated key-value store on an implementation of Raft written from scratch. The consensus
+        core never touches the clock, the network or the disk, so a whole cluster runs inside one
+        test and replays exactly from a seed. That made it possible to throw message loss,
+        partitions and crash-restarts at it and check Raft's safety properties after every step.
+      </p>
+      <ul>
+        <li>1,000 randomized fault scenarios pass; mutation tests confirm the suite catches a forgotten vote or a lost log entry.</li>
+        <li>About 49,000 concurrent operations under partitions, checked linearizable with Porcupine.</li>
+        <li>Durable writes went from 842 to about 3,450 per second once replication was pipelined and fsyncs were batched.</li>
+      </ul>
+      <p class="more">
+        <a href="https://github.com/kabilaymen/quorum">Code</a>
+        <a href="https://github.com/kabilaymen/quorum/blob/main/JOURNAL.md">What went wrong along the way</a>
+      </p>
+    </article>
+
+    <article>
+      <h3>Vigil</h3>
+      <p class="meta">2026 · Go, Python · MQTT, Kafka, Prometheus, Grafana</p>
+      <p>
+        Telemetry and failure detection for a fleet of machines. A crashed machine is easy to
+        notice: the broker publishes its last will. A machine that is still connected but has
+        stopped working is not, because its network thread keeps answering pings. Vigil catches
+        both, the second with a phi accrual detector that learns each machine's heartbeat rhythm.
+      </p>
+      <ul>
+        <li>A stalled machine is flagged after about 1.2 s of silence; a crash is reported in about 1 s (50 simulated machines).</li>
+        <li>The detector stops judging the fleet while it is itself behind the stream, so a slow detector cannot raise false alarms.</li>
+      </ul>
+      <p class="more">
+        <a href="https://github.com/kabilaymen/vigil">Code</a>
+      </p>
+    </article>
+
+    <article>
+      <h3>Fault-tolerant key-value store</h3>
+      <p class="meta">2026 · Java, Akka · team of four</p>
+      <p>
+        A multi-writer, multi-reader atomic register in the style of ABD, over N actors and
+        tolerating fewer than N/2 crashes. Execution histories were checked for linearizability,
+        and latency was measured across nine configurations.
+      </p>
+      <p class="more"><a href="https://github.com/marcutudor79/robust-key-value-store">Code</a></p>
+    </article>
+
+    <article>
+      <h3>Distributed robotic factory</h3>
+      <p class="meta">2025 · Java, Spring Boot, Kafka, Docker</p>
+      <p>
+        A monolithic factory simulator turned, in four stages, into a concurrent and then
+        distributed system: one thread per robot with livelock detection, a binary TCP persistence
+        protocol, a Spring Boot service and state streamed over Kafka.
+      </p>
+      <p class="more"><a href="https://github.com/kabilaymen/distributed-robotic-factory">Code</a></p>
+    </article>
+
+    <article>
+      <h3>HARO</h3>
+      <p class="meta">2025 · Python · research, INPT</p>
+      <p>
+        A multi-objective optimiser that proposes ways to split a Java monolith into microservices
+        and ranks them by expected refactoring return. It compares more than twenty
+        community-detection and metaheuristic methods on five real Spring systems. The code is
+        private for now.
+      </p>
+    </article>
+  </section>
+
+  <section>
+    <h2>Experience</h2>
+    <dl class="cv">
+      <dt>2025</dt>
+      <dd>
+        <b>Software engineering intern, CIEMS.ai</b>, Rabat.
+        Built a vehicle damage assessment platform for insurers: a Flask API with authentication
+        and role-based access, vision models that pre-fill damage reports from photos, and a
+        Next.js front end.
+      </dd>
+      <dt>2025</dt>
+      <dd>
+        <b>Research intern, INPT (SEEDS team)</b>, Rabat. HARO, above.
+      </dd>
+      <dt>2024</dt>
+      <dd>
+        <b>Software engineering intern, Moroccan Ministry of Health</b>, Rabat.
+        A health education module for a national youth platform (Spring Boot, PostgreSQL, Kafka).
+      </dd>
+    </dl>
+  </section>
+
+  <section>
+    <h2>Education</h2>
+    <dl class="cv">
+      <dt>2026–27</dt>
+      <dd><b>M2 Parallel and Distributed Systems</b>, Institut Polytechnique de Paris (Télécom SudParis). HPC with OpenMP, MPI and CUDA, multicore programming, distributed algorithms.</dd>
+      <dt>2025–27</dt>
+      <dd><b>Diplôme d'ingénieur</b>, Télécom Paris, double degree with INPT. Distributed software systems; mathematics, theoretical computer science and operations research.</dd>
+      <dt>2023–25</dt>
+      <dd><b>Engineering cycle in software engineering</b>, INPT, Rabat.</dd>
+      <dt>2021–23</dt>
+      <dd><b>Classes préparatoires</b>, Lycée Mohamed V, Casablanca. Ranked 20th of 912 at the national entrance exam.</dd>
+    </dl>
+  </section>
+
+  <section>
+    <h2>Elsewhere</h2>
+    <ul class="plain">
+      <li>Highest Kaggle score among 30 teams at the Airbus × IBM HAKS hackathon (2026).</li>
+      <li>Second place in the grand final of the ASC Systems Engineering Challenge, IP Paris (2025–26).</li>
+      <li>Vice-president of the INPT chess club (2024–25). I play rapid at around 1900 on chess.com.</li>
+      <li>English (TOEIC 955), French, Arabic.</li>
+    </ul>
+  </section>
+
+  <footer>Palaiseau, France</footer>
+</main>
+</body>
+</html>
