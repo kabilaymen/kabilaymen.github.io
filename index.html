@@ -54,7 +54,7 @@
         It runs on a small cloud VM where a cron job kills the leader every ten minutes. The first
         days showed an election storm after each restart: the other nodes kept writing into their dead
         connections to the restarted one, and TCP only told them so 26 seconds later. Fixing the
-        transport, then adding PreVote, made the restarts invisible.
+        transport, then adding PreVote, lets a restarted node rejoin without forcing an election.
       </p>
       <p class="more">
         <a href="https://quorum.aymenkabil.me">Live dashboard</a>
